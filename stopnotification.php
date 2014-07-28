@@ -17,7 +17,7 @@ if (isset($_GET['code'])) {
 	$url = "https://www.googleapis.com/calendar/v3/channels/stop";
 	/* setup the POST parameters */
 	$fields = json_encode(array(
-	    'id'      => "8eb7915a9ffcc8d43f0135fce6927f43",
+	    'id'      => "26822eac3e1e2b9c54b164ae8a9c030a",
 	    'resourceId'   => 'o8NNPk5X3IO__w-CeO7U6WgkvWY'
     ));
 
