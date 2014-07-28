@@ -2,6 +2,7 @@
 date_default_timezone_set('America/Los_Angeles');
 require_once 'Google/Client.php';
 require_once 'Google/Service/Calendar.php';
+require_once 'Google/Service/Oauth2.php';
 
 $client_id = '867444719707-cd6p1jd0pgjhgqp6mk073k6hvs2dtulp.apps.googleusercontent.com';
 $client_secret = 'emJpbLliLu5whjClOBRCHttZ';
@@ -10,13 +11,14 @@ $client = new Google_Client();
 $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
-$client->setScopes('https://www.googleapis.com/auth/calendar');
+$client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/calendar'));
 
 if (isset($_GET['code'])) {
 	$client->authenticate($_GET['code']); // $client->setAccessToken()
-	$token_data = $client->verifyIdToken()->getAttributes();
+	$plus = new Google_Service_Oauth2($client);
+	$userinfo = $plus->userinfo;
 	echo '<pre>';
-	var_dump($token_data);
+	var_dump($userinfo->get());
 	echo '</pre>';
 	die();
   	$access_json = $client->getAccessToken();
