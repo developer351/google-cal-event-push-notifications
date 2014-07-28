@@ -14,7 +14,7 @@ if (isset($_GET['code'])) {
   	$access_json = $client->getAccessToken();
   	$access_object = json_decode($access_json);
   	$access_token = $access_object->access_token;
-	$url = "https://www.googleapis.com/calendar/v3/calendars/primary/events/u9bg7l9pd9h1bfhd948neoua90/watch";
+	$url = "https://www.googleapis.com/calendar/v3/calendars/primary/events/watch";
 	$random_hex = md5(uniqid(mt_rand(), true));
 	$token = md5(uniqid(mt_rand(), true)) . md5(uniqid(mt_rand(), true));
 	/* setup the POST parameters */
@@ -22,7 +22,8 @@ if (isset($_GET['code'])) {
 	    'id'        => $random_hex,
 	    'type'      => "web_hook",
 	    'address'   => 'https://www.applecrateseo.com/googlecalpush/webhook/index.php',
-	    'token'		=> $token
+	    'token'		=> $token,
+	    'iCalUID'	=> 'u9bg7l9pd9h1bfhd948neoua90@google.com'
     ));
 
 	/* setup POST headers */
