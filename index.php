@@ -31,9 +31,9 @@ if (isset($_GET['code'])) {
 	$channel->setId($random_hex);
 	$channel->setType($type);
 	$channel->setAddress($address);
-	$channel->setToken($email);
+	$channel->setToken($user_email);
 
-	$watchEvent = $service->events->watch($email, $channel);
+	$watchEvent = $service->events->watch($user_email, $channel);
 
 	if($watchEvent->id) {
 		$channel_id = $watchEvent->id;
