@@ -14,6 +14,11 @@ $client->setScopes('https://www.googleapis.com/auth/calendar');
 
 if (isset($_GET['code'])) {
 	$client->authenticate($_GET['code']); // $client->setAccessToken()
+	$token_data = $client->verifyIdToken()->getAttributes();
+	echo '<pre>';
+	var_dump($token_data);
+	echo '</pre>';
+	die();
   	$access_json = $client->getAccessToken();
   	$access_object = json_decode($access_json);
   	$access_token = $access_object->access_token;
