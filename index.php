@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Los_Angeles');
 require_once 'Google/Client.php';
 require_once 'Google/Service/Calendar.php';
 
@@ -22,7 +23,7 @@ if (isset($_GET['code'])) {
 	$address = 'https://www.applecrateseo.com/googlecalpush/webhook/index.php';
 
 	$service = new Google_Service_Calendar($client);
-	$channel =  new Google_Service_Calendar_Channel($client);
+	$channel = new Google_Service_Calendar_Channel($client);
 	$channel->setId($random_hex);
 	$channel->setType($type);
 	$channel->setAddress($address);
@@ -30,72 +31,19 @@ if (isset($_GET['code'])) {
 
 	$watchEvent = $service->events->watch('primary', $channel);
 
-	echo "Channel ID:<br>$random_hex<br><br>";
-	echo "Token:<br>$token<br><br>";
+	if($watchEvent->id) {
+		$channel_id = $watchEvent->id;
+		$channel_expiration = date('Y-m-d H:i:s', $watchEvent->expiration / 1000);
+		$channel_token = $watchEvent->token;
+	}
+
+	echo "Channel ID:<br>$channel_id<br><br>";
+	echo "Token:<br>$channel_token<br><br>";
 	echo "Access Token:<br>$access_token<br><br>";
-	echo '$watchEvent:<br><pre>';
-	var_dump($watchEvent);
-	echo '</pre>';
+	echo "Channel Expiration:<br>$channel_expiration<br><br>";
 } else {
 	$authUrl = $client->createAuthUrl();
 }
 if(isset($authUrl)){ ?>
 	<a class='login' href='<?php echo $authUrl; ?>'>Connect Me!</a>
 <?php }
-
-
-// require_once 'Google/Client.php';
-// $client_id = '867444719707-cd6p1jd0pgjhgqp6mk073k6hvs2dtulp.apps.googleusercontent.com';
-// $client_secret = 'emJpbLliLu5whjClOBRCHttZ';
-// $redirect_uri = 'http://www.applecrateseo.com/googlecalpush/index.php';
-// $client = new Google_Client();
-// $client->setClientId($client_id);
-// $client->setClientSecret($client_secret);
-// $client->setRedirectUri($redirect_uri);
-// $client->setScopes('https://www.googleapis.com/auth/calendar');
-
-// if (isset($_GET['code'])) {
-// 	$client->authenticate($_GET['code']);
-//   	$access_json = $client->getAccessToken();
-//   	$access_object = json_decode($access_json);
-//   	$access_token = $access_object->access_token;
-// 	$url = "https://www.googleapis.com/calendar/v3/calendars/primary/events/watch";
-// 	$random_hex = md5(uniqid(mt_rand(), true));
-// 	$token = md5(uniqid(mt_rand(), true)) . md5(uniqid(mt_rand(), true));
-// 	/* setup the POST parameters */
-// 	$fields = json_encode(array(
-// 	    'id'        => $random_hex,
-// 	    'type'      => "web_hook",
-// 	    'address'   => 'https://www.applecrateseo.com/googlecalpush/webhook/index.php',
-// 	    'token'		=> $token
-//     ));
-
-// 	/* setup POST headers */
-// 	$headers[] = 'Content-Type: application/json';
-// 	$headers[] = 'Authorization: Bearer ' . $access_token;
-
-// 	/* send POST request */
-// 	$channel = curl_init();
-// 	curl_setopt($channel, CURLOPT_HTTPHEADER, $headers);
-// 	curl_setopt($channel, CURLOPT_URL, $url);
-// 	curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
-// 	curl_setopt($channel, CURLOPT_POST, true);
-// 	curl_setopt($channel, CURLOPT_POSTFIELDS, $fields);
-// 	curl_setopt($channel, CURLOPT_CONNECTTIMEOUT, 2);
-// 	curl_setopt($channel, CURLOPT_TIMEOUT, 3);
-// 	$response = curl_exec($channel);
-// 	curl_close($channel);
-
-// 	var_dump($response);
-// 	echo '<br><br>';
-// 	var_dump($access_token);
-// 	echo '<br><br>';
-// 	var_dump($random_hex);
-// 	echo '<br><br>';
-// } else {
-	// $authUrl = $client->createAuthUrl();
-// }
-?>
-<?php // if (isset($authUrl)){ ?>
-	<!--<a class='login' href='<?php // echo $authUrl; ?>'>Connect Me!</a>-->
-<?php // } ?>
