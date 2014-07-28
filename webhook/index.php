@@ -32,14 +32,6 @@ if(substr($_SERVER['HTTP_USER_AGENT'], 0, 11) === 'APIs-Google') {
 	foreach($data as $key=>$val) {
 		$str .= "$key: $val\n";
 	}
-	$str .= "BEGIN GET ALL HEADERS FUNCTION:\n";
-	foreach(getallheaders() as $key=>$val) {
-		$str .= "$key: $val\n";
-	}
-	$str .= "BEGIN POST ARRAY DUMP:\n";
-	foreach($_POST as $key=>$val) {
-		$str .= "$key: $val\n";
-	}
 	$str .= "------------------------------------END-REQUEST-----------------------------------------\n\n";
 
 	$file = 'webhook.thelog';

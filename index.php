@@ -22,8 +22,7 @@ if (isset($_GET['code'])) {
 	    'id'        => $random_hex,
 	    'type'      => "web_hook",
 	    'address'   => 'https://www.applecrateseo.com/googlecalpush/webhook/index.php',
-	    'token'		=> $token,
-	    'iCalUID'	=> 'u9bg7l9pd9h1bfhd948neoua90@google.com'
+	    'token'		=> $token
     ));
 
 	/* setup POST headers */
