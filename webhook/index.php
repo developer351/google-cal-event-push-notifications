@@ -5,7 +5,8 @@ $data = array();
 $unused_elseifs = 0;
 
 $data['http_user_agent'] = $_SERVER['HTTP_USER_AGENT']; // Check for: APIs-Google
-$data['boolean'] = (String)(int)($data['http_user_agent'] == 'APIs-Google');
+
+$data['boolean'] = (substr($_SERVER['HTTP_USER_AGENT'], 0, 11) === 'APIs-Google') ? 'true' : 'false';
 
 if(isset($_SERVER['HTTP_X_GOOG_CHANNEL_ID'])) {
 	$data['x_goog_channel_id'] = $_SERVER['HTTP_X_GOOG_CHANNEL_ID'];
