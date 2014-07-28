@@ -16,11 +16,13 @@ if (isset($_GET['code'])) {
   	$access_token = $access_object->access_token;
 	$url = "https://www.googleapis.com/calendar/v3/calendars/primary/events/watch";
 	$random_hex = md5(uniqid(mt_rand(), true));
+	$token = md5(uniqid(mt_rand(), true)) . md5(uniqid(mt_rand(), true));
 	/* setup the POST parameters */
 	$fields = json_encode(array(
 	    'id'        => $random_hex,
 	    'type'      => "web_hook",
-	    'address'   => 'https://www.applecrateseo.com/googlecalpush/webhook/index.php'
+	    'address'   => 'https://www.applecrateseo.com/googlecalpush/webhook/index.php',
+	    'token'		=> $token
     ));
 
 	/* setup POST headers */

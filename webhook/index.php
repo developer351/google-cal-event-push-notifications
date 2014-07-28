@@ -44,11 +44,18 @@ if(isset($_SERVER['HTTP_X_GOOG_CHANNEL_EXPIRATION'])) {
 } elseif(isset($headers['X-Goog-Channel-Expiration'])) {
 	$data['x_goog_channel_expiration'] = $headers['X-Goog-Channel-Expiration'];
 }
+if(isset($_SERVER['HTTP_X_GOOG_CHANNEL_TOKEN'])) {
+	$data['x_goog_channel_token'] = $_SERVER['HTTP_X_GOOG_CHANNEL_TOKEN'];
+	$unused_elseifs++;
+} elseif(isset($headers['X-Goog-Channel-Token'])) {
+	$data['x_goog_channel_token'] = $headers['X-Goog-Channel-Token'];
+}
 
 $str = '';
 foreach($data as $key=>$val) {
 	$str .= "$key: $val\n";
 }
+$str .= "Unused Elseif's: $unused_elseifs\n";
 $str .= "------------------------------------END-REQUEST-----------------------------------------\n\n";
 
 $file = 'webhook.thelog';
