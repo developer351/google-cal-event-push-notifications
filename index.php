@@ -19,12 +19,10 @@ if (isset($_GET['code'])) {
 	$userinfo = $plus->userinfo;
 	$userinfo = $userinfo->get();
 	$user_email = $userinfo->email;
-	var_dump($user_email); die();
   	$access_json = $client->getAccessToken();
   	$access_object = json_decode($access_json);
   	$access_token = $access_object->access_token;
 	$random_hex = md5(uniqid(mt_rand(), true));
-	$token = md5(uniqid(mt_rand(), true)) . md5(uniqid(mt_rand(), true));
 	$type = "web_hook";
 	$address = 'https://www.applecrateseo.com/googlecalpush/webhook/index.php';
 
@@ -33,9 +31,9 @@ if (isset($_GET['code'])) {
 	$channel->setId($random_hex);
 	$channel->setType($type);
 	$channel->setAddress($address);
-	$channel->setToken($token);
+	$channel->setToken($email);
 
-	$watchEvent = $service->events->watch('primary', $channel);
+	$watchEvent = $service->events->watch($email, $channel);
 
 	if($watchEvent->id) {
 		$channel_id = $watchEvent->id;
