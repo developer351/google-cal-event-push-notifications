@@ -17,10 +17,9 @@ if (isset($_GET['code'])) {
 	$client->authenticate($_GET['code']); // $client->setAccessToken()
 	$plus = new Google_Service_Oauth2($client);
 	$userinfo = $plus->userinfo;
-	echo '<pre>';
-	var_dump($userinfo->get());
-	echo '</pre>';
-	die();
+	$userinfo = $userinfo->get();
+	$user_email = $userinfo->email;
+	var_dump($user_email); die();
   	$access_json = $client->getAccessToken();
   	$access_object = json_decode($access_json);
   	$access_token = $access_object->access_token;
