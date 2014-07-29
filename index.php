@@ -14,14 +14,11 @@ $client->setRedirectUri($redirect_uri);
 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/calendar'));
 
 if (isset($_GET['code'])) {
-	$client->authenticate($_GET['code']); // $client->setAccessToken()
+	$client->authenticate($_GET['code']);
 	$plus = new Google_Service_Oauth2($client);
 	$userinfo = $plus->userinfo;
 	$userinfo = $userinfo->get();
 	$user_email = $userinfo->email;
-  	$access_json = $client->getAccessToken();
-  	$access_object = json_decode($access_json);
-  	$access_token = $access_object->access_token;
 	$random_hex = md5(uniqid(mt_rand(), true));
 	$type = "web_hook";
 	$address = 'https://www.applecrateseo.com/googlecalpush/webhook/index.php';
@@ -39,12 +36,12 @@ if (isset($_GET['code'])) {
 		$channel_id = $watchEvent->id;
 		$channel_expiration = date('Y-m-d H:i:s', $watchEvent->expiration / 1000);
 		$channel_token = $watchEvent->token;
+		echo "Channel ID:<br>$channel_id<br><br>";
+		echo "Token:<br>$channel_token<br><br>";
+		echo "Channel Expiration:<br>$channel_expiration<br><br>";
+	} else {
+		die('no results received');
 	}
-
-	echo "Channel ID:<br>$channel_id<br><br>";
-	echo "Token:<br>$channel_token<br><br>";
-	echo "Access Token:<br>$access_token<br><br>";
-	echo "Channel Expiration:<br>$channel_expiration<br><br>";
 } else {
 	$authUrl = $client->createAuthUrl();
 }
