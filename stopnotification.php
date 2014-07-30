@@ -19,8 +19,12 @@ if (isset($_GET['code'])) {
 	$channel->setId('e09cbc80745b77ef4d0d3a191e57cdc6');
 	$channel->setResourceId('o8NNPk5X3IO__w-CeO7U6WgkvWY');
 
-	$channelStop = $service->channels->stop($channel);
-	var_dump($channelStop);die();
+	try {
+		$channelStop = $service->channels->stop($channel);
+		var_dump($channelStop);die();
+	} catch(Google_Service_Exception $e) {
+		echo "Google Service Exception Caught: " . $e->getMessage();die();
+	}
   	
 	// $url = "https://www.googleapis.com/calendar/v3/channels/stop";
 	// /* setup the POST parameters */
