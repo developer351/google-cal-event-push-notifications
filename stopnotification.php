@@ -16,8 +16,8 @@ if (isset($_GET['code'])) {
 
 	$service = new Google_Service_Calendar($client);
 	$channel = new Google_Service_Calendar_Channel($client);
-	$channel->setId('e09cbc80745b77ef4d0d3a191e57cdc6');
-	$channel->setResourceId('o8NNPk5X3IO__w-CeO7U6WgkvWY');
+	$channel->setId('52f09c5a8f54b06e29bada627666e09d'); // THIS ALWAYS CHANGES
+	$channel->setResourceId('o8NNPk5X3IO__w-CeO7U6WgkvWY'); // THIS IS THE CALENDAR ID, OR WHATEVER
 
 	try {
 		$channelStop = $service->channels->stop($channel);
