@@ -20,37 +20,12 @@ if (isset($_GET['code'])) {
 	$channel->setResourceId('o8NNPk5X3IO__w-CeO7U6WgkvWY'); // THIS IS THE CALENDAR ID, OR WHATEVER
 
 	try {
-		$channelStop = $service->channels->stop($channel);
-		var_dump($channelStop);die();
+		$service->channels->stop($channel);
+		echo "DONE!";
+		die();
 	} catch(Google_Service_Exception $e) {
 		echo "Google Service Exception Caught: " . $e->getMessage();die();
 	}
-  	
-	// $url = "https://www.googleapis.com/calendar/v3/channels/stop";
-	// /* setup the POST parameters */
-	// $fields = json_encode(array(
-	//     'id'      => "e09cbc80745b77ef4d0d3a191e57cdc6",
-	//     'resourceId'   => 'o8NNPk5X3IO__w-CeO7U6WgkvWY'
- //    ));
-
-	// /* setup POST headers */
-	// $headers[] = 'Content-Type: application/json';
-	// $headers[] = 'Authorization: Bearer ' . $access_token;
-
-	// /* send POST request */
-	// $channel = curl_init();
-	// curl_setopt($channel, CURLOPT_HTTPHEADER, $headers);
-	// curl_setopt($channel, CURLOPT_URL, $url);
-	// curl_setopt($channel, CURLOPT_RETURNTRANSFER, true);
-	// curl_setopt($channel, CURLOPT_POST, true);
-	// curl_setopt($channel, CURLOPT_POSTFIELDS, $fields);
-	// curl_setopt($channel, CURLOPT_CONNECTTIMEOUT, 2);
-	// curl_setopt($channel, CURLOPT_TIMEOUT, 3);
-	// $response = curl_exec($channel);
-	// curl_close($channel);
-
-	// var_dump($response);
-	// echo '<br><br>';
 } else {
 	$authUrl = $client->createAuthUrl();
 }
