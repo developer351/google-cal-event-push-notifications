@@ -33,10 +33,10 @@ if (isset($_GET['code'])) {
 	$watchEvent = $service->events->watch($user_email, $channel);
 
 	if($watchEvent->id) {
-		var_dump($watchEvent); die();
 		$channel_id = $watchEvent->id;
 		$channel_expiration = date('Y-m-d H:i:s', $watchEvent->expiration / 1000);
 		$channel_token = $watchEvent->token;
+		$channel_resource = $watchEvent->resourceId;
 		echo "Channel ID:<br>$channel_id<br><br>";
 		echo "Token:<br>$channel_token<br><br>";
 		echo "Channel Expiration:<br>$channel_expiration<br><br>";
