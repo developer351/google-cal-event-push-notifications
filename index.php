@@ -12,7 +12,9 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 $client->setRedirectUri($redirect_uri);
 $client->setScopes(array('https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/calendar'));
-
+$service = new Google_Service_Calendar($client);
+$event = $service->events->get('server4001@gmail.com', 'uob1hisk5ut97mtg53elkdeo1o');
+var_dump($event);die();
 if (isset($_GET['code'])) {
 	$client->authenticate($_GET['code']);
 	$plus = new Google_Service_Oauth2($client);
